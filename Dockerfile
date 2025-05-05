@@ -7,6 +7,8 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
+    nodejs \
+    npm \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy project files
@@ -24,8 +26,13 @@ ENV PYTHONPATH=/app
 # Create a directory for logs
 RUN mkdir -p /app/logs
 
-# Set the entrypoint to handle all arguments
-ENTRYPOINT ["mcp_snowflake_server"]
+COPY startup.sh startup.sh
+RUN chmod +x startup.sh
+
+EXPOSE 3001
+
+# Use npx supergateway to export a port with SSE
+ENTRYPOINT ["./startup.sh"]
 
 # Default command (can be overridden)
 CMD ["--account", "your_account", \
