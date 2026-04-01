@@ -11,6 +11,7 @@ dependencies = [
     "python-dotenv>=1.0.1",
     "sqlparse>=0.5.3",
     "snowflake-snowpark-python>=1.26.0",
+    "setuptools>=65,<82",
     "pyOpenSSL==23.2.0",
     "cryptography==41.0.7",
 ]
@@ -19,8 +20,8 @@ dependencies = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.uv]
-dev-dependencies = ["pyright>=1.1.389"]
+[dependency-groups]
+dev = ["pyright>=1.1.389"]
 
 [project.scripts]
 mcp_snowflake_server = "mcp_snowflake_server:main"
